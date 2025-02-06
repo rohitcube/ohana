@@ -63,10 +63,19 @@ export default function ProfileScreen() {
           onEditPress={handleEditPress}
         />
 
+        {/* Bio Section */}
+        {profile.bio && (
+          <View style={styles.bioContainer}>
+            <Text style={styles.bioLabel}>About Me</Text>
+            <View style={styles.bioBox}>
+              <Text style={styles.bioText}>{profile.bio}</Text>
+            </View>
+          </View>
+        )}
+
         <ProfileSection title="Personal Information">
           <ProfileField label="Email" value={profile.email} />
           <ProfileField label="Interests" value={profile.interests} />
-          {profile.bio && <ProfileField label="Bio" value={profile.bio} />}
         </ProfileSection>
 
         {profile.socials && Object.keys(profile.socials).length > 0 && (
@@ -88,14 +97,31 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+    },
+    bioContainer: {
+      padding: 16,
+      marginBottom: 8,
+    },
+    bioLabel: {
+      fontSize: 18,
+      fontWeight: '600',
+      marginBottom: 8,
+      color: '#333',
+    },
+    bioBox: {
+      backgroundColor: '#f5f5f5',
+      padding: 16,
+      borderRadius: 12,
+      minHeight: 100,
+      borderWidth: 1,
+      borderColor: '#e0e0e0',
+    },
+    bioText: {
+      fontSize: 16,
+      lineHeight: 24,
+      color: '#444',
+    },
 });
