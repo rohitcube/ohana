@@ -32,7 +32,8 @@ app.use('/api', api);
 
 // Dynamic route loading
 const routes = [
-   'user'
+   'user',
+   'update',
 ];
 
 for (const item of routes) {

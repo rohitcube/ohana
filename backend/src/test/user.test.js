@@ -37,4 +37,34 @@ describe('User API Test', () => {
     expect(response.body.username).toBe(userData.username);
     expect(response.body.email).toBe(userData.email);
   });
+
+  it('should update user password', async () => {
+    // First create a user
+    const userData = {
+      username: 'testuser',
+      email: 'test@test.com',
+      password: 'test'
+    };
+    const createResponse = await request(app)
+      .post('/api/user')
+      .send(userData);
+
+    // Get the created user's ID
+    const userId = createResponse.body._id;
+
+    // Then update the password
+    const updateData = {
+      id: userId,
+      password: 'newpassword'
+    };
+
+    const updateResponse = await request(app)
+      .put(`/api/update`)
+      .send(updateData);
+
+    // Assert the update was successful
+    expect(updateResponse.status).toBe(200);
+    expect(updateResponse.body.password).toBe(updateData.password);
+
+});
 });
