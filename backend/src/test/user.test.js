@@ -26,7 +26,7 @@ describe('User API Test', () => {
     const userData = {
       username: 'testuser',
       email: 'test@test.com',
-      password: 'test'
+      password: 'testtexas'
     };
 
     const response = await request(app)
@@ -43,7 +43,7 @@ describe('User API Test', () => {
     const userData = {
       username: 'testuser',
       email: 'test@test.com',
-      password: 'test'
+      password: 'testtexas'
     };
     const createResponse = await request(app)
       .post('/api/user')
@@ -66,5 +66,25 @@ describe('User API Test', () => {
     expect(updateResponse.status).toBe(200);
     expect(updateResponse.body.password).toBe(updateData.password);
 
-});
+  });
+
+  it('should throw password validation error (at least 8 chars)', async () => {
+    const userData = {
+      username: 'testuser',
+      email: 'test@test.com',
+      password: 'test'
+    };
+
+    const response = await request(app)
+      .post('/api/user')
+      .send(userData);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+    expect(response.body).toHaveProperty('status', 'error');
+
+    // If you want to test specific error messages:
+    expect(response.body.message).toContain('password');
+  });
+
 });
